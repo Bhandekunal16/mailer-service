@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
+
+const Logger = require('robotic.js/interface/Logger') as any;
+const logger = new Logger();
 require('dotenv').config();
-Logger.log('host :' + process.env.LOCALHOST, 'main.ts');
+
+logger.log(`host : ${process.env.LOCALHOST}`);
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

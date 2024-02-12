@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // notification.service.ts
 
 import { Injectable } from '@nestjs/common';
@@ -7,7 +8,16 @@ import { MessageService } from './message.service';
 export class NotificationService {
   constructor(private readonly emailService: MessageService) {}
 
-  async sendEmailNotification(to: string, message: string) {
+  async sendEmailNotification(
+    to: string,
+    message: string,
+  ): Promise<{
+    success?: boolean;
+    res?: string;
+    statusCode: number;
+    message: string;
+    status?: boolean;
+  }> {
     try {
       const subject = 'Robotic';
       const text = message;
@@ -17,11 +27,17 @@ export class NotificationService {
         await this.emailService.sendEmail(to, subject, text, html);
         return {
           success: true,
+          statusCode: 200,
           message: 'Email notification sent successfully',
         };
-      } else return {status: true, message: 'email not send due to message'}
+      } else
+        return {
+          status: false,
+          statusCode: 404,
+          message: 'email not send due to message',
+        };
     } catch (error) {
-      return { res: error, status: false, msg: 'error' };
+      return { res: error, status: false, statusCode: 500, message: 'error' };
     }
   }
 }
