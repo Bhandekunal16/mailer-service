@@ -4,6 +4,8 @@ import * as nodemailer from 'nodemailer';
 import mailerConfig from './mailer.config';
 const Logger = require('robotic.js/interface/Logger') as any;
 const logger = new Logger();
+const Maintain = require('robotic.js/interface/maintain') as any;
+const maintain = new Maintain();
 
 @Injectable()
 export class MessageService {
@@ -24,6 +26,9 @@ export class MessageService {
 
     try {
       await this.transporter.sendMail(mailOptions);
+      await maintain.log(
+        `mail send to ${mailOptions.to} from ${mailOptions.from}`,
+      );
     } catch (error) {
       logger.error(error);
       return { res: error, statusCode: 500, status: false, message: 'error' };
