@@ -4,8 +4,8 @@ export default {
     port: 587,
     secure: false,
     auth: {
-      user: 'bhandekunal16@gmail.com',
-      pass: 'xujh hxqr wkij qref',
+      user: 'roboticDev07@gmail.com',
+      pass: 'mhoa bkda hpob loya',
     },
   },
 };
