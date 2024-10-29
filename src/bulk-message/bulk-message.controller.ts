@@ -7,13 +7,12 @@ const logger = new Logger();
 export class BulkMessageController {
   constructor(private readonly bulkMessageService: BulkMessageService) {}
 
-
   @Post('send-email')
-  async sendEmailNotification(@Body() body: { to: string; message: string }) {
+  async sendEmailNotification(@Body() body: { email: string; unit: number }) {
     try {
-      const { to, message } = body;
-      logger.log(to, message);
-      await this.bulkMessageService.sendEmailNotification(to, message);
+      const { email, unit } = body;
+      logger.log(email, unit);
+      await this.bulkMessageService.sendEmailNotification(email, unit);
       return { success: true, message: 'Email notification request received' };
     } catch (error) {
       logger.error(error);
