@@ -13,7 +13,11 @@ export class BulkMessageController {
       const { email, unit } = body;
       logger.log(email, unit);
       await this.bulkMessageService.sendEmailNotification(email, unit);
-      return { success: true, message: 'Email notification request received' };
+      return {
+        status: true,
+        msg: 'Email notification request received',
+        statusCode: 200,
+      };
     } catch (error) {
       logger.error(error);
       return { success: false, error: 'Failed to send email notification' };
