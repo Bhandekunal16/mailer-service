@@ -20,7 +20,7 @@ export class BulkMessageController {
       };
     } catch (error) {
       logger.error(error);
-      return { success: false, error: 'Failed to send email notification' };
+      return { success: false, error: 'Failed to send email notification', statusCode: 500 };
     }
   }
 }
