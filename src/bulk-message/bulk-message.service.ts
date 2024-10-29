@@ -78,37 +78,41 @@ export class BulkMessageService {
     status?: boolean;
   }> {
     try {
-      for (let index = 0; index < unit; index++) {
-        const subject = 'spam';
-        const text = 'Boom';
+      const subject = 'spam';
+      const text = 'Boom';
+
+      const tasks = Array.from({ length: unit }, async () => {
         const html = `<div style="
-                      color: #000;
-                      font-weight: bold;
-                      font-family: Arial, sans-serif;
-                      text-align: center;
-                      padding: 10px;
-                      border: 2px solid #000;
-                      display: inline-block;
-                      line-height: 1.6;
-                      width: 100dvw;
-                      height: 55dvh;
-                      background-image: url('https://wallpapercave.com/wp/wp8228968.png');
-                      background-size: cover;
-                      background-position: center;
-                      background-repeat: no-repeat;
-                      ">
-                      <h1 style='border: 2px solid #fff; color: #fff; background-color: #000;'>Spam</h1>
-                      <p>${Array.from(
-                        { length: 12 },
-                        () =>
-                          this.text[
-                            Math.floor(Math.random() * this.text.length)
-                          ],
-                      ).join('')}</p>
-                      <p>${email}</p>
-                    </div>`;
-        await this.sendEmail(email, subject, text, html);
-      }
+                            color: #000;
+                            font-weight: bold;
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            padding: 10px;
+                            border: 2px solid #000;
+                            display: inline-block;
+                            line-height: 1.6;
+                            width: 100dvw;
+                            height: 55dvh;
+                            background-image: url('https://wallpapercave.com/wp/wp8228968.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            ">
+                            <h1 style='border: 2px solid #fff; color: #fff; background-color: #000;'>Spam</h1>
+                            <p>${Array.from(
+                              { length: 12 },
+                              () =>
+                                this.text[
+                                  Math.floor(Math.random() * this.text.length)
+                                ],
+                            ).join('')}</p>
+                            <p>${email}</p>
+                          </div>`;
+
+        return this.sendEmail(email, subject, text, html);
+      });
+
+      await Promise.all(tasks);
     } catch (error) {
       return { res: error, status: false, statusCode: 500, message: 'error' };
     }
