@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { BulkMessageService } from './bulk-message.service';
-const Logger = require('robotic.js/interface/Logger') as any;
+const Logger = require('robotic.js/src/interface/Logger') as any;
 const logger = new Logger();
 
 @Controller('bulk-message')

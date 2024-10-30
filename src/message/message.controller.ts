@@ -2,7 +2,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { NotificationService } from './notification.service';
-const Logger = require('robotic.js/interface/Logger') as any;
+const Logger = require('robotic.js/src/interface/Logger') as any;
 const logger = new Logger();
 
 @Controller('message')

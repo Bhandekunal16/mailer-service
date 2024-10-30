@@ -2,9 +2,9 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import mailerConfig from './mailer.config';
-const Logger = require('robotic.js/interface/Logger') as any;
+const Logger = require('robotic.js/src/interface/Logger') as any;
 const logger = new Logger();
-const Maintain = require('robotic.js/interface/maintain') as any;
+const Maintain = require('robotic.js/src/interface/maintain') as any;
 const maintain = new Maintain();
 
 @Injectable()

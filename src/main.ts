@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
-const Logger = require('robotic.js/interface/Logger') as any;
-const Maintain = require('robotic.js/interface/maintain') as any;
+const Logger = require('robotic.js/src/interface/Logger') as any;
+const Maintain = require('robotic.js/src/interface/maintain') as any;
 const logger = new Logger();
 const maintain = new Maintain();
 require('dotenv').config();
