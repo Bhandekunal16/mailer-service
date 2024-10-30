@@ -8,8 +8,7 @@ export class AppController {
   @Get()
   getHello(@Req() req: any) {
     return {
-      data: this.appService.getHello(),
-      ip: req.socket.remoteAddress,
+      data: req.socket._peername.address,
       family: req.socket._peername.family,
       port: req.socket._peername.port,
     };
