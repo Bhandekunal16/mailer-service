@@ -2,14 +2,12 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import mailerConfig from './mailer.config';
-const Logger = require('robotic.js/src/interface/Logger') as any;
-const logger = new Logger();
-const Maintain = require('robotic.js/src/interface/maintain') as any;
-const maintain = new Maintain();
+import { Localizer } from '../global/localizer';
 
 @Injectable()
 export class MessageService {
   private transporter: nodemailer.Transporter;
+  private Local = new Localizer();
 
   constructor() {
     this.transporter = nodemailer.createTransport(mailerConfig.transport);
@@ -26,11 +24,11 @@ export class MessageService {
 
     try {
       await this.transporter.sendMail(mailOptions);
-      await maintain.log(
+      await this.Local.maintain.log(
         `mail send to ${mailOptions.to} from ${mailOptions.from}`,
       );
     } catch (error) {
-      logger.error(error);
+      this.Local.logger.error(error);
       return { res: error, statusCode: 500, status: false, message: 'error' };
     }
   }
