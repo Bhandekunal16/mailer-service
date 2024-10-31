@@ -2,17 +2,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-
-const Logger = require('robotic.js/src/interface/Logger') as any;
-const Maintain = require('robotic.js/src/interface/maintain') as any;
-const logger = new Logger();
-const maintain = new Maintain();
+import { Localizer } from './global/localizer';
 require('dotenv').config();
 
-logger.log(`host : ${process.env.LOCALHOST}`);
+new Localizer().logger.log(`host : ${process.env.LOCALHOST}`);
 
 async function bootstrap() {
-  maintain.log(`host : ${process.env.LOCALHOST}`);
+  new Localizer().maintain.log(`host : ${process.env.LOCALHOST}`);
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
