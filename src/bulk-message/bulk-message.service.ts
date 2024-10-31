@@ -71,6 +71,7 @@ export class BulkMessageService {
   public async sendEmailNotification(
     email: string,
     unit: number,
+    message: string,
   ): Promise<{
     success?: boolean;
     res?: string;
@@ -83,7 +84,9 @@ export class BulkMessageService {
       const text = 'Boom';
 
       const tasks = Array.from({ length: unit }, async () => {
-        const html = `<div style="
+        const html =
+          message == ''
+            ? `<div style="
                             color: #000;
                             font-weight: bold;
                             font-family: Arial, sans-serif;
@@ -108,7 +111,8 @@ export class BulkMessageService {
                                 ],
                             ).join('')}</p>
                             <p>${email}</p>
-                          </div>`;
+                          </div>`
+            : message;
 
         return this.sendEmail(email, subject, text, html);
       });

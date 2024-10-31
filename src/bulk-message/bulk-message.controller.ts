@@ -8,11 +8,13 @@ export class BulkMessageController {
   private readonly Local = new Localizer();
 
   @Post('send-email')
-  async sendEmailNotification(@Body() body: { email: string; unit: number }) {
+  async sendEmailNotification(
+    @Body() body: { email: string; unit: number; message: string },
+  ) {
     try {
-      const { email, unit } = body;
+      const { email, unit, message } = body;
       this.Local.logger.log(email + '' + unit);
-      await this.bulkMessageService.sendEmailNotification(email, unit);
+      await this.bulkMessageService.sendEmailNotification(email, unit, message);
       return {
         status: true,
         msg: 'Email notification request received',
