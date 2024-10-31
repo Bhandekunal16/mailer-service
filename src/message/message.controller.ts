@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { Controller, Post, Body } from '@nestjs/common';
-
 import { NotificationService } from './notification.service';
 import { Localizer } from '../global/localizer';
 
