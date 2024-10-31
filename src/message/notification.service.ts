@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// notification.service.ts
-
 import { Injectable } from '@nestjs/common';
 import { MessageService } from './message.service';
 

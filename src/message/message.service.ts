@@ -6,8 +6,8 @@ import { Localizer } from '../global/localizer';
 
 @Injectable()
 export class MessageService {
-  private transporter: nodemailer.Transporter;
-  private Local = new Localizer();
+  private readonly transporter: nodemailer.Transporter;
+  private readonly Local = new Localizer();
 
   constructor() {
     this.transporter = nodemailer.createTransport(mailerConfig.transport);
@@ -23,10 +23,12 @@ export class MessageService {
     };
 
     try {
-      await this.transporter.sendMail(mailOptions);
-      await this.Local.maintain.log(
-        `mail send to ${mailOptions.to} from ${mailOptions.from}`,
-      );
+      await Promise.all([
+        this.transporter.sendMail(mailOptions),
+        this.Local.maintain.log(
+          `mail send to ${mailOptions.to} from ${mailOptions.from}`,
+        ),
+      ]);
     } catch (error) {
       this.Local.logger.error(error);
       return { res: error, statusCode: 500, status: false, message: 'error' };

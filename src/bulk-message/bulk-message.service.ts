@@ -5,8 +5,8 @@ import { Localizer } from '../global/localizer';
 
 @Injectable()
 export class BulkMessageService {
-  private transporter: nodemailer.Transporter;
-  private text = [
+  private readonly transporter: nodemailer.Transporter;
+  private readonly text = [
     'a',
     'b',
     'c',
@@ -38,7 +38,7 @@ export class BulkMessageService {
     this.transporter = nodemailer.createTransport(mailerConfig.transport);
   }
 
-  private Local = new Localizer();
+  private readonly Local = new Localizer();
 
   private async sendEmail(
     to: string,
