@@ -56,7 +56,7 @@ export class BulkMessageService {
     };
 
     try {
-      await Promise.all([this.transporter.sendMail(mailOptions)]);
+      await this.transporter.sendMail(mailOptions);
     } catch (error) {
       this.Local.logger.error(error);
       return { res: error, statusCode: 500, status: false, message: 'error' };
