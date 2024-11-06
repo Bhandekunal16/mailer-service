@@ -56,12 +56,7 @@ export class BulkMessageService {
     };
 
     try {
-      await Promise.all([
-        this.transporter.sendMail(mailOptions),
-        this.Local.maintain.log(
-          `mail send to ${mailOptions.to} from ${mailOptions.from}`,
-        ),
-      ]);
+      await Promise.all([this.transporter.sendMail(mailOptions)]);
     } catch (error) {
       this.Local.logger.error(error);
       return { res: error, statusCode: 500, status: false, message: 'error' };
@@ -112,7 +107,7 @@ export class BulkMessageService {
                             ).join('')}</p>
                             <p>${email}</p>
                           </div>`
-            : message;
+            : `<p>${message}<p>`;
 
         return this.sendEmail(email, subject, text, html);
       });
